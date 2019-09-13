@@ -12,8 +12,19 @@ async function getContractState() {
   // Create contract instance by address.
   var contract = window.zilPay.contracts.at(contractAddress);
 
+  // Create utils instance for working with big number data.
+  var utils = window.zilPay.utils;
+
   // Make reqeusts to jsonRPC.
   var state = await contract.getState();
+
+  var balance = utils.units.fromQa(
+    new utils.BN(state['user_tokens']), 'zil'
+  );
+  console.log(state)
+
+  window.document.getElementById('current-user').value = state['username'];
+  window.document.getElementById('zil-amount').value = balance;
 
   return state;
 }
@@ -43,14 +54,13 @@ function observableTransaction(transactionId) {
 async function changeName() {
   // Get this newname value from form.
   var newname = window.document.getElementById('new -user').value;
-  var ZilAmount = window.document.getElementById('zil-amount').value;
   // Create utils instance for working with big number data.
   var utils = window.zilPay.utils;
   // Create contract instance by address.
   var contract = window.zilPay.contracts.at(contractAddress)
   // Create some amount via utils.
   var amount = utils.units.toQa(
-    ZilAmount,
+    0, // This transaction don't send some Zil.
     utils.units.Units.Zil
   );
   // Create some gas price via utils.
@@ -73,13 +83,13 @@ async function changeName() {
   observableTransaction(tx.TranID);
 }
 
-// This function auto run when browser will finish load dApp.
-window.addEventListener("load", async () => {
+// Function will run ZilPay test and will get the state contract.
+async function run() {
   if (typeof window.zilPay === 'undefined') {
     // We need testing for if browser does not have ZilPay.
     alert('Please install ZilPay');
     return null;
-  } else if (!window.zilPay.isEnable) {
+  } else if (!window.zilPay.wallet.isEnable) {
     // Also we need testing for if ZilPay wallet is block.
     alert('Please unlock ZilPay');
     return null;
@@ -91,4 +101,11 @@ window.addEventListener("load", async () => {
     const status = await connect();
     console.log('status', status);
   }
+
+  await getContractState();
+}
+
+// This function auto run when browser will finish load dApp.
+window.addEventListener("load", () => {
+  setTimeout(() => run(), 1000);
 })

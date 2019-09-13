@@ -14,17 +14,12 @@
     <form id="recommendationForm" class="pt-5">
       <div class="form-group">
         <label for="current-user">current User</label>
-        <input class="form-control" id="current-user">
+        <input class="form-control" id="current-user" disabled>
       </div>
 
       <div class="form-group">
         <label for="new -user">Enter new Name for this user:</label>
         <input class="form-control" id="new -user" placeholder="Enter new Name for this user:">
-      </div>
-
-      <div class="form-group">
-        <label for="zil-amount">Amount Zil:</label>
-        <input class="form-control" id="zil-amount" type="number" value="0">
       </div>
 
       <!-- When you click this button, trigger call ZIlPay wallet -->
@@ -36,7 +31,7 @@
     </form>
 
     <div class="col mt-5 text-center">
-      <code class="mt-5" id="code"></code>
+      <pre class="mt-5 text-left text-info" id="code"></pre>
     </div>
   </div>
   <script src="./index.js"></script>
