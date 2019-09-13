@@ -12,19 +12,12 @@ async function getContractState() {
   // Create contract instance by address.
   var contract = window.zilPay.contracts.at(contractAddress);
 
-  // Create utils instance for working with big number data.
-  var utils = window.zilPay.utils;
-
   // Make reqeusts to jsonRPC.
   var state = await contract.getState();
 
-  var balance = utils.units.fromQa(
-    new utils.BN(state['user_tokens']), 'zil'
-  );
-  console.log(state)
+  console.log(state);
 
   window.document.getElementById('current-user').value = state['username'];
-  window.document.getElementById('zil-amount').value = balance;
 
   return state;
 }
@@ -40,12 +33,18 @@ function observableTransaction(transactionId) {
     window.zilPay.blockchain
       .getTransaction(transactionId)
       .then(tx => {
-        console.log(tx);
         window.document.getElementById('code').innerHTML = JSON.stringify(tx, null, 4);
         window.document.getElementById('btn').style.display = 'block';
         window.document.getElementById('loader').style.display = 'none';
-        clearInterval(int);
+
+        // If transaction is success then get new state of contract.
+        if (tx.receipt.success) {
+          return getContractState();
+        }
+
+        return null;
       })
+      .then(() => clearInterval(int))
       .catch(err => console.log('next', err));
   }, 3000);
 }
