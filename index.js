@@ -97,7 +97,7 @@ async function run() {
   if (!zilPay.wallet.isConnect) {
     // Get grant for working with this domain.
     // When call this function ZilPay is show popup.
-    const status = await connect();
+    const status = await window.zilPay.wallet.connect();
     console.log('status', status);
   }
 
