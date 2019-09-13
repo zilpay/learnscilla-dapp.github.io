@@ -8,29 +8,28 @@
   <title>learnscilla-dapp</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container pt-5">
     <h1>Zilliqa testnet dApp</h1>
 
-    <h2 id="connection">ZilPay</h2>
-
-    <form id="recommendationForm">
+    <form id="recommendationForm" class="pt-5">
       <div class="form-group">
-        <label for="talkTitle">Title</label>
-        <input class="form-control" id="talkTitle" placeholder="Title of the talk">
+        <label for="current-user">current User</label>
+        <input class="form-control" id="current-user">
       </div>
 
       <div class="form-group">
-        <label for="talkPresenter">Presenter</label>
-        <input class="form-control" id="talkPresenter" placeholder="Name of the presenter">
+        <label for="new -user">Enter new Name for this user:</label>
+        <input class="form-control" id="new -user" placeholder="Enter new Name for this user:">
       </div>
 
       <div class="form-group">
-        <label for="talkLink">Link</label>
-        <input type="url" class="form-control" id="talkLink" placeholder="Link to a recording of the talk">
+        <label for="zil-amount">Amount Zil:</label>
+        <input class="form-control" id="zil-amount" type="number" value="0">
       </div>
 
       <!-- When you click this button, trigger call ZIlPay wallet -->
-      <button type="button" class="btn btn-default">Submit</button>
+      <!-- onclick="changeName()" call the function from index.js -->
+      <button onclick="changeName()" type="button" class="btn btn-primary">change name</button>
     </form>
   </div>
   <script src="./index.js"></script>
