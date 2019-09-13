@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>learnscilla-dapp</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Zilliqa testnet dApp</h1>
+
+    <h2 id="connection">ZilPay</h2>
+
+    <form id="recommendationForm">
+      <div class="form-group">
+        <label for="talkTitle">Title</label>
+        <input class="form-control" id="talkTitle" placeholder="Title of the talk">
+      </div>
+
+      <div class="form-group">
+        <label for="talkPresenter">Presenter</label>
+        <input class="form-control" id="talkPresenter" placeholder="Name of the presenter">
+      </div>
+
+      <div class="form-group">
+        <label for="talkLink">Link</label>
+        <input type="url" class="form-control" id="talkLink" placeholder="Link to a recording of the talk">
+      </div>
+
+      <!-- When you click this button, trigger call ZIlPay wallet -->
+      <button type="button" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>
