@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container pt-5">
-    <h1>Zilliqa testnet dApp</h1>
+    <h1 class="mt-3">Zilliqa testnet dApp</h1>
 
     <form id="recommendationForm" class="pt-5">
       <div class="form-group">
@@ -29,8 +29,15 @@
 
       <!-- When you click this button, trigger call ZIlPay wallet -->
       <!-- onclick="changeName()" call the function from index.js -->
-      <button onclick="changeName()" type="button" class="btn btn-primary">change name</button>
+      <button onclick="changeName()" type="button" class="btn btn-primary" id="btn">change name</button>
+      <div class="spinner-border" role="status" id="loader" style="display: none;">
+        <span class="sr-only">Loading...</span>
+      </div>
     </form>
+
+    <div class="col mt-5 text-center">
+      <code class="mt-5" id="code"></code>
+    </div>
   </div>
   <script src="./index.js"></script>
 </body>

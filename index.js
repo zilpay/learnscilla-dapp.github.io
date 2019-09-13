@@ -4,21 +4,42 @@
  */
 
 // Contract address SocialMediaPayment in blockchain Zilliqa.
-var contractAddress = '';
+var contractAddress = 'zil1833t7pwvtx0h8mrcd2mwq32ends7dnna5t369f';
 
+// Asynchronous function which make requests to Zilliqa node
+// Zilliqa node response contract state in json format.
 async function getContractState() {
-  // Asynchronous function which make requests to Zilliqa node
-  // Zilliqa node response contract state in json format.
-
   // Create contract instance by address.
-  var contract = window.zilPay.contracts.at(contractAddress)
+  var contract = window.zilPay.contracts.at(contractAddress);
 
   // Make reqeusts to jsonRPC.
   var state = await contract.getState();
 
-  return state
+  return state;
 }
 
+// This function observable when transaction will be completed.
+function observableTransaction(transactionId) {
+  // Hide this button and show loader.
+  window.document.getElementById('btn').style.display = 'none';
+  window.document.getElementById('loader').style.display = 'block';
+
+  // Create interval for listing transaction, each 3s.
+  var int = setInterval(async () => {
+    window.zilPay.blockchain
+      .getTransaction(transactionId)
+      .then(tx => {
+        console.log(tx);
+        window.document.getElementById('code').innerHTML = JSON.stringify(tx, null, 4);
+        window.document.getElementById('btn').style.display = 'block';
+        window.document.getElementById('loader').style.display = 'none';
+        clearInterval(int);
+      })
+      .catch(err => console.log('next', err));
+  }, 3000);
+}
+
+// This function call the transition method from contract.
 async function changeName() {
   // Get this newname value from form.
   var newname = window.document.getElementById('new -user').value;
@@ -49,7 +70,7 @@ async function changeName() {
       gasLimit: utils.Long.fromNumber(9000)
     }
   );
-  console.log(tx);
+  observableTransaction(tx.TranID);
 }
 
 // This function auto run when browser will finish load dApp.
@@ -57,11 +78,11 @@ window.addEventListener("load", async () => {
   if (typeof window.zilPay === 'undefined') {
     // We need testing for if browser does not have ZilPay.
     alert('Please install ZilPay');
-    return null
+    return null;
   } else if (!window.zilPay.isEnable) {
     // Also we need testing for if ZilPay wallet is block.
     alert('Please unlock ZilPay');
-    return null
+    return null;
   }
 
   if (!zilPay.wallet.isConnect) {
