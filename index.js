@@ -24,6 +24,7 @@ async function getContractState() {
 
 // This function observable when transaction will be completed.
 function observableTransaction(transactionId) {
+  const viewblock = 'https://viewblock.io/zilliqa';
   // Hide this button and show loader.
   window.document.getElementById('btn').style.display = 'none';
   window.document.getElementById('loader').style.display = 'block';
@@ -33,10 +34,12 @@ function observableTransaction(transactionId) {
     window.zilPay.blockchain
       .getTransaction(transactionId)
       .then(tx => {
-        window.document.getElementById('code').innerHTML = JSON.stringify(tx, null, 4);
+        // window.document.getElementById('code').innerHTML = JSON.stringify(tx, null, 4);
         window.document.getElementById('btn').style.display = 'block';
         window.document.getElementById('loader').style.display = 'none';
 
+        window.document.getElementById('handler').style.display = "block";
+        window.document.getElementById('viewblock').href = viewblock + '/tx/' + transactionId + '?network=testnet';
         // If transaction is success then get new state of contract.
         if (tx.receipt.success) {
           return getContractState();
@@ -52,7 +55,7 @@ function observableTransaction(transactionId) {
 // This function call the transition method from contract.
 async function changeName() {
   // Get this newname value from form.
-  var newname = window.document.getElementById('new -user').value;
+  var newname = window.document.getElementById('new-user').value;
   // Create utils instance for working with big number data.
   var utils = window.zilPay.utils;
   // Create contract instance by address.
