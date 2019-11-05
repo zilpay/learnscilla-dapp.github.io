@@ -95,6 +95,10 @@ async function run() {
     // Also we need testing for if ZilPay wallet is block.
     alert('Please unlock ZilPay');
     return null;
+  } else if (!window.zilPay.wallet.net !== 'testnet') {
+    // Also we need testing network.
+    alert('Please change network');
+    return null;
   }
 
   if (!zilPay.wallet.isConnect) {
